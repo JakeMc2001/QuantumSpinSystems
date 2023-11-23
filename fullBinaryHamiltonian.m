@@ -4,22 +4,21 @@
 function [states,H]=fullBinaryHamiltonian(N)
     states=0:(2^N -1);
     H=zeros(2^N);
+    bits=2;
     for a=1:2^N
-        bits=length(dec2bin(a-1));
+        %bits=length(dec2bin(a-1));
         abits=bitget(states(a),bits:-1:1);
         for i=1:bits
             j=findNextSpin(i+1,bits);
             if abits(i)==abits(j)
                 % spins the same
-                H(a,a) = H(a,a) + 1/4;
+                H(a,a) = H(a,a) + 1/8;
             else
                 % spins different
-                H(a,a) = H(a,a) - 1/4;
+                H(a,a) = H(a,a) - 1/8;
                 % flip spins
                 b=flipSpins(abits,i,j);
-                %abits
-                %dec2bin(b)
-                H(a,b)= 1/2;
+                H(a,b+1)= 1/2;
             end
         end
     end
