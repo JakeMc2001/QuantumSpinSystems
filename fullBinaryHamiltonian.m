@@ -5,7 +5,6 @@ function [states,H]=fullBinaryHamiltonian(N)
     states=0:(2^N -1);
     H=zeros(2^N);
     for a=1:2^N
-        %bits=length(dec2bin(a-1));
         abits=bitget(states(a),N:-1:1);
         for i=1:N
             j=findNextSpin(i+1,N);
