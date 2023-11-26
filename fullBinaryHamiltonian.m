@@ -2,6 +2,7 @@
 % and the full Hamiltonian in binary representation
 % for a system of N spins
 function [states,H]=fullBinaryHamiltonian(N)
+    tic
     states=0:(2^N -1);
     H=zeros(2^N);
     for a=1:2^N
@@ -10,14 +11,15 @@ function [states,H]=fullBinaryHamiltonian(N)
             j=findNextSpin(i+1,N);
             if abits(i)==abits(j)
                 % spins the same
-                H(a,a) = H(a,a) + 1/8;
+                H(a,a) = H(a,a) + 1/4;
             else
                 % spins different
-                H(a,a) = H(a,a) - 1/8;
+                H(a,a) = H(a,a) - 1/4;
                 % flip spins
                 b=flipSpins(abits,i,j);
                 H(a,b+1)= 1/2;
             end
         end
     end
+    toc
 end
