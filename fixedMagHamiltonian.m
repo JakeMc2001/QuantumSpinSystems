@@ -17,7 +17,8 @@ function [states,H]=fixedMagHamiltonian(N,mz)
                 % flip spins
                 b=flipSpins(abits,i,j);
                 % find the position of the flipped state
-                b=findState(b,states);
+                posb=findState(b,states);
+                b=states(posb);
                 H(a,b)= 1/2;
             end
         end
