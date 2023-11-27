@@ -1,6 +1,8 @@
 % generates a list of states
 % and the full Hamiltonian in binary representation
 % for a system of N spins
+% Note - doesn't give the correct Hamiltonian for N=2
+% due to adding the diagonal elements twice
 function [states,H]=fullBinaryHamiltonian(N)
     tic
     states=0:(2^N -1);
