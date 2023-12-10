@@ -7,8 +7,7 @@ function [lj,parent]=findLj(b,parents)
         % b is not a parent state
         % iterate over all ways to cycle bits of b
         for i=1:N
-            bj=cyclebits(b,i);
-            bj=bin2dec(num2str(bj));
+            bj=cyclebits(bInt,i,N);
             % search for current cycle in parent list
             posb=findState(bj,parents);
             if posb~=-1

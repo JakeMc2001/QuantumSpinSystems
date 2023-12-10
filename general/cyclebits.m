@@ -1,7 +1,7 @@
 % cycles bits of integer i to the left by n permutations
 % i - bit representation of integer i
-function j=cyclebits(i,n)
-    N=length(i);
+function j=cyclebits(i,n,N)
+    i=bitget(i,N:-1:1);
     j=i; % new state after permutation
     if n~=0
         for m=1:n
@@ -11,4 +11,5 @@ function j=cyclebits(i,n)
             j(N)=tmp;
         end
     end
+    j=bin2dec(num2str(j));
 end

@@ -9,5 +9,4 @@ function b=flipSpins(a,i,j)
             b(n)=a(n);
         end
     end
-    %b=bin2dec(num2str(b));
 end
