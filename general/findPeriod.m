@@ -4,7 +4,7 @@ function [R,states]=findPeriod(s)
     sInt=bin2dec(num2str(s));
     states=sInt; %state list
     for i=1:N
-        t=cyclebits(s,i,N);
+        t=cyclebits(sInt,i,N);
         if t==sInt
             R=i;
             break
