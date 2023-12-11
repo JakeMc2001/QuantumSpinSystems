@@ -1,16 +1,18 @@
-% find the states and k values for a list of parent states
-% with their associated periodicities in the periods array
-function states=findMomentumStates(parents,periods,N)
+% find the states and periodicities from the given parent states which have
+% the given k value
+function [states,R]=findMomentumStates(parents,periods,k,N)
     n=length(parents);
-    statesNum=sum(periods);
-    states=zeros(3,statesNum);
-    startBlock=0;
+    states=[];
+    R=[];
     for i=1:n
-        currentParent=bitget(parents(i),N:-1:1);
-        endBlock=startBlock+periods(i);
-        orbit=getOrbit(currentParent,periods(i));
-        states(1:2,startBlock+1:endBlock)=orbit(:,:);
-        states(3,startBlock+1:endBlock)=periods(i);
-        startBlock=endBlock;
+        currentParent=parents(i);
+        orbit=getOrbit(currentParent,periods(i),N);
+        [~,orbitSize]=size(orbit);
+        for j=1:orbitSize
+            if orbit(2,j)==k
+                states=[states orbit(1,j)];
+                R=[R periods(i)];
+            end
+        end
     end
 end
