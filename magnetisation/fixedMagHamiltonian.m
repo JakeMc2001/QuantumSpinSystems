@@ -1,6 +1,6 @@
 % this function generates a block Hamiltonian
 % for a fixed magnetisation value mz
-function [states,H]=fixedMagHamiltonian(N,mz)
+function H=fixedMagHamiltonian(N,mz)
     states=genMagStates(N,mz);
     M=length(states);
     H=zeros(M);
