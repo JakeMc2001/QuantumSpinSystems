@@ -10,10 +10,8 @@ function energyList=momentumEnergyLevels(N)
     counter=1;
     % iterate over mz values
     for i=1:length(mzValues)
-        mzValues(i)
         for j=1:length(k)
-            k(j)
-            H=fixedkHamiltonian(N,mzValues(i),k(j))
+            H=fixedkHamiltonian(N,mzValues(i),k(j));
             e=eig(H);
             % append energy to energy list
             energyList(1,counter:(counter+length(e)-1))=e.';
