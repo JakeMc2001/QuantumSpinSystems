@@ -8,18 +8,25 @@ function [active,periods]=findActiveParents(N,mz,k)
     % array to store periodicities of active parents
     periods=[];
     % iterate over array of parents
+    % for i=1:length(parents)
+    %     % obtain the orbit (parent and child states)
+    %     orbit=getOrbit(parents(i),R(i),N);
+    %     [~,orbitSize]=size(orbit);
+    %     % iterate over the states in the orbit to check for
+    %     % states with the given k momentum
+    %     for j=1:orbitSize
+    %         % if the parent has a child state with k value, it is active
+    %         if orbit(2,j)==k
+    %             active=[active parents(i)];
+    %             periods=[periods R(i)];
+    %         end
+    %     end
+    % end
     for i=1:length(parents)
-        % obtain the orbit (parent and child states)
-        orbit=getOrbit(parents(i),R(i),N);
-        [~,orbitSize]=size(orbit);
-        % iterate over the states in the orbit to check for
-        % states with the given k momentum
-        for j=1:orbitSize
-            % if the parent has a child state with k value, it is active
-            if orbit(2,j)==k
-                active=[active parents(i)];
-                periods=[periods R(i)];
-            end
+        isActive=checkParent(N,R(i),k);
+        if isActive=="true"
+            active=[active parents(i)];
+            periods=[periods R(i)];
         end
     end
 end

@@ -11,9 +11,9 @@ function orbit=getOrbit(parent,period,N)
         orbit(1,m+1)=newState;
         % calculate k value of current state (units pi)
         k=(2*m)/period;
-        if k>1
-            k=k-2;
-        end
+        % if k>1
+        %     k=k-2;
+        % end
         % assign k value to current state
         orbit(2,m+1)=k;
     end

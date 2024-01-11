@@ -5,8 +5,8 @@ function PlotEnergyLevelDiagram(EnergyLevels,SystemDescription)
         plot(EnergyLevels{i,1}*ones(1,length(EnergyLevels{i,2})),EnergyLevels{i,2},'*');
     end
     % y limits can be changed to improve layout of plot
-    ylim([-2.2 1.2]);
-    xlim([-0.2 2.2]);
+    %ylim([-2.2 1.2]);
+    %xlim([-0.2 2.2]);
     ylabel('Energy/J'); xlabel('Sz');
     title(["Energy Level Diagram",SystemDescription]);
 end

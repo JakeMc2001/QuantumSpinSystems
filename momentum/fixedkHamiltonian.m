@@ -1,9 +1,19 @@
 % k - momentum in units of pi, multiplied by pi later in code
 function H=fixedkHamiltonian(N,mz,k)
+    fprintf('k = %0.1f\n',k)
     % find active parent states for mz block
     [activeParents,periods]=findActiveParents(N,mz,k);
+    fprintf('Num of active parents: %d\n',length(activeParents))
     % find the list of states in k block
     [kStates,R]=findMomentumStates(activeParents,periods,k,N);
+    fprintf('Num of states : %d\n',length(kStates))
+    % kStates=[];
+    % R=[];
+    % for i=1:length(activeParents)
+    %     orbit=getOrbit(activeParents(i),periods(i),N);
+    %     kStates=[kStates orbit(1,:)];
+    %     R=[R orbit(2,:)];
+    % end
     [~,M]=size(kStates);
     H=zeros(M);
     k=k*pi;
