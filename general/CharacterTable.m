@@ -6,5 +6,4 @@ function charTable=CharacterTable(N)
     for n=1:N
         charTable(n,:)=exp(1i*k*t(n));
     end
-
 end
