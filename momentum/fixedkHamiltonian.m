@@ -1,6 +1,6 @@
 % k - momentum in units of pi, multiplied by pi later in code
 function H=fixedkHamiltonian(N,mz,k)
-    fprintf('k = %0.1f\n',k)
+    fprintf('m = %d\t k = %0.1f\n',mz,k)
     % find active parent states for mz block
     [activeParents,periods]=findActiveParents(N,mz,k);
     fprintf('Num of active parents: %d\n',length(activeParents))
@@ -32,11 +32,13 @@ function H=fixedkHamiltonian(N,mz,k)
                 % flip spins
                 b=flipSpins(sbits,i,j);
                 % find l=num of translations of b to get a parent state
-                [l,~]=findLj(b,activeParents);
-                posb=find(kStates==bin2dec(num2str(b)));
-                if posb
+                [l,r]=findLj(b,activeParents);
+                %posb=find(kStates==bin2dec(num2str(b)));
+                posb=findState(r,kStates);
+                if posb>0
                     Rb=R(posb);
                     H(a,posb)=H(a,posb)+ 1/2*(Ra/Rb)^(1/2) *exp(-i*k*l);
+                    %H(a,posb)=H(a,posb)+ 1/2;%*(Ra/Rb)^(1/2);
                 end
             end
         end

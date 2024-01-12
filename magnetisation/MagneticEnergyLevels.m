@@ -5,6 +5,8 @@ function energyList=MagneticEnergyLevels(N)
     mzValues=0:N/2;
     % preallocate array to store energy values
     energyList=cell(length(mzValues),2);
+    % define counter for total number of states
+    numOfStates=0;
     % iterate over mz values
     for i=1:length(mzValues)
         % obtain the H block for current mz value
@@ -13,5 +15,7 @@ function energyList=MagneticEnergyLevels(N)
         e=eig(H);
         % append energy to energy list
         energyList(i,:)={mzValues(i),e.'};
+        numOfStates = numOfStates + length(e);
     end
+    fprintf('Total number of states: %d\n',numOfStates)
 end

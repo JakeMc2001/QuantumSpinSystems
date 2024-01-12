@@ -2,6 +2,8 @@
 % for a fixed magnetisation value mz
 function H=fixedMagHamiltonian(N,mz)
     states=genMagStates(N,mz);
+    fprintf('mz = %d\n',mz)
+    fprintf('Num of states : %d\n',length(states))
     M=length(states);
     H=zeros(M);
     for a=1:M

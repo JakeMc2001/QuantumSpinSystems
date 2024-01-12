@@ -7,6 +7,7 @@ function [states,R]=findMomentumStates(parents,periods,k,N)
     for i=1:n
         currentParent=parents(i);
         orbit=getOrbit(currentParent,periods(i),N);
+        %orbit=fullOrbit(currentParent,N);
         [~,orbitSize]=size(orbit);
         for j=1:orbitSize
             if orbit(2,j)==k
