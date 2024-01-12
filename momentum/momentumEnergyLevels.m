@@ -1,7 +1,7 @@
 function energyList=momentumEnergyLevels(N)
     tic
     % array of mz values
-    mzValues=0:N/2;
+    mzValues=-N/2:N/2;
     % preallocate array to store energy values
     %energyList=cell(length(mzValues),3);
     energyList={};
@@ -27,7 +27,7 @@ function energyList=momentumEnergyLevels(N)
             numOfStates = numOfStates + length(e);
             magStates = magStates + length(e);
         end
-        fprintf('States for mz=%d : %d\n',mzValues(i),magStates)
+        fprintf('\t States for mz=%d : %d\n',mzValues(i),magStates)
     end
     fprintf('Total number of states: %d\n',numOfStates)
     toc

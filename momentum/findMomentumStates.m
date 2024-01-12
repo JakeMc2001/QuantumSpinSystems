@@ -10,7 +10,8 @@ function [states,R]=findMomentumStates(parents,periods,k,N)
         %orbit=fullOrbit(currentParent,N);
         [~,orbitSize]=size(orbit);
         for j=1:orbitSize
-            if orbit(2,j)==k
+            if abs(orbit(2,j)-k) < 10^-4
+            %if orbit(2,j)==k
                 states=[states orbit(1,j)];
                 R=[R periods(i)];
             end

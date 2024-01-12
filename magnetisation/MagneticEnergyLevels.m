@@ -2,7 +2,7 @@
 % split into the H blocks
 function energyList=MagneticEnergyLevels(N)
     % array of mz values
-    mzValues=0:N/2;
+    mzValues=-N/2:N/2;
     % preallocate array to store energy values
     energyList=cell(length(mzValues),2);
     % define counter for total number of states
