@@ -7,7 +7,8 @@ function isActive=checkParent(N,R,k)
     if R<N
         % may not be active - must calculate sum
         % determine index of momentum
-        kj=2*k +1;
+        %kj=(N/2)*k +1;
+        kj=round((N/2)*k +1);
         index=R+1;
         sum=1;
         charTable=CharacterTable(N);
