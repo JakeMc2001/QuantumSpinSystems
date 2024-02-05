@@ -2,6 +2,7 @@
 % works, don't touch it!!!!!!!!!!!!!
 % just copy to mess around with it!!!!!!!
 function energyList=kHEnergyWORKS(N)
+    tic
     m=(-N/2 +1):(N/2);
     kValues=(2*pi/N)*m;
     energyList={};
@@ -50,4 +51,5 @@ function energyList=kHEnergyWORKS(N)
             [index,~]=size(energyList);
         end
     end
+    toc
 end
