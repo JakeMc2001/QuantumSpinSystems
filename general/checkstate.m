@@ -1,3 +1,4 @@
+% probably equivalent to using the character table
 function R=checkstate(s,N,k)
     R=-1;
     % find periodicities
