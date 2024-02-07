@@ -1,6 +1,6 @@
 % refactor of kHEnergyWORKS()
 % splits some code into individual functions
-function energyList=splittingMomentum(N)
+function energyList=momentumEnergy(N)
     tic
     m=(-N/2 +1):(N/2);
     kValues=(2*pi/N)*m;
