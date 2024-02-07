@@ -1,12 +1,17 @@
 % finds the energy eigenvalues for the given mz
 % iterates over the k values from array kValues
 function energy=kMagBlock(N,mz,kValues)
+    fprintf('mz = %d\n',mz)
     energy={};
     index=0;
+    numOfStates=0;
     for ki=1:length(kValues)
         k=kValues(ki);
+        fprintf('\t k = %0.1f\n',k)
         [s,R]=findValidParents(N,mz,k);
         M=length(s);
+        %fprintf('Num of active parents: %d\n',M)
+        numOfStates = numOfStates + M;
         H=zeros(M);
         for a=1:M
             sa=s(a);
@@ -33,4 +38,5 @@ function energy=kMagBlock(N,mz,kValues)
         energy(index+1,:)={mz,e.'};
         [index,~]=size(energy);
     end
+    fprintf('%d state/s for mz = %d\n',numOfStates,mz)
 end
