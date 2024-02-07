@@ -15,15 +15,4 @@ function R=checkstate(s,N,k)
             end
         end
     end
-    % m=-1;
-    % t=reflectbits(s,N);
-    % for i=0:(R-1)
-    %     % find m value
-    %     if t==s
-    %         m=i;
-    %         break
-    %     end
-    %     t=cyclebits(t,1,N);
-    %     bitget(t,N:-1:1);
-    % end
 end
