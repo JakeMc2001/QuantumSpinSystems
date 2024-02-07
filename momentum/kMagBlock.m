@@ -1,6 +1,6 @@
 % finds the energy eigenvalues for the given mz
 % iterates over the k values from array kValues
-function energy=kMagEnergy(N,mz,kValues)
+function energy=kMagBlock(N,mz,kValues)
     energy={};
     index=0;
     for ki=1:length(kValues)
