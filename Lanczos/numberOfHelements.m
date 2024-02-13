@@ -1,11 +1,12 @@
 % returns array eValues of number of nonzero H elements ea
 % and array B(i) which contains the positions of the non zero elements
 % i= 1,...,e1,e1+1,...,e1+e2,etc
-function [eValues,B]=numberOfHelements(N,mz,k)
+function [eValues,B,H]=numberOfHelements(N,mz,k)
     [s,R]=findValidParents(N,mz,k);
     M=length(s);
     eValues=zeros(1,M);
     B=[];
+    H=[];
     for a=1:M
         % array stores H elements
         Ha=zeros(1,M);
@@ -31,5 +32,6 @@ function [eValues,B]=numberOfHelements(N,mz,k)
         nonZeroHa=(abs(Ha)>10e-5);
         eValues(a)=sum(nonZeroHa);
         B = [B find(Ha)];
+        H = [H Ha(find(Ha))];
     end
 end
