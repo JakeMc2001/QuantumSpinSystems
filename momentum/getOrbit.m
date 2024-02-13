@@ -10,7 +10,12 @@ function orbit=getOrbit(parent,period,N)
         % assign new state in orbit to the storage matrix
         orbit(1,m+1)=newState;
         % calculate k value of current state (units pi)
-        k=(2*m)/period;
+        %k=(2*m)/period;
+        if period==N
+            k=m;
+        else
+            k=2*m;
+        end
         % if k>1
         %     k=k-2;
         % end
