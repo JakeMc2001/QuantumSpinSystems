@@ -7,16 +7,19 @@ function energyList=momentumEnergyLevels(N)
     energyList={};
     % array of k values
     m=0:N-1;
-    k=(2/N)*m;
+    %k=(2/N)*m;
+    k=m;
     index=0;
     % define counter for total number of states
     numOfStates=0;
+    Hterms=genHterms(N);
     % iterate over mz values
     for i=1:length(mzValues)
         magStates=0;
         for j=1:length(k)
-            H=fixedkHamiltonian(N,mzValues(i),k(j));
-            e=eig(H);
+            %H=fixedkHamiltonian(N,mzValues(i),k(j))
+            H=generateHamiltonian(N,mzValues(i),k(j),Hterms)
+            e=eig(H)
             if isempty(e)
                 break
             end

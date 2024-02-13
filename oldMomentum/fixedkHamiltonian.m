@@ -2,11 +2,12 @@
 function H=fixedkHamiltonian(N,mz,k)
     fprintf('m = %d\t k = %0.1f\n',mz,k)
     % find active parent states for mz block
-    [activeParents,periods]=findActiveParents(N,mz,k);
+    %[activeParents,periods]=findActiveParents(N,mz,k);
+    [activeParents,periods]=findActiveStates(N,mz,k);
     fprintf('Num of active parents: %d\n',length(activeParents))
     % find the list of states in k block
-    [kStates,R]=findMomentumStates(activeParents,periods,k,N);
-    fprintf('Num of states : %d\n',length(kStates))
+    %[kStates,R]=findMomentumStates(activeParents,periods,k,N);
+    %fprintf('Num of states : %d\n',length(kStates))
     % kStates=[];
     % R=[];
     % for i=1:length(activeParents)
@@ -14,12 +15,16 @@ function H=fixedkHamiltonian(N,mz,k)
     %     kStates=[kStates orbit(1,:)];
     %     R=[R orbit(2,:)];
     % end
-    [~,M]=size(kStates);
+    %[~,M]=size(kStates);
+    [~,M]=size(activeParents);
     H=zeros(M);
-    k=k*pi;
+    %k=k*pi;
+    k=(pi/2)*k;
     for a=1:M
-        Ra=R(a);
-        s=kStates(a);
+        %Ra=R(a);
+        Ra=periods(a);
+        %s=kStates(a);
+        s=activeParents(a);
         sbits=bitget(s,N:-1:1);
         for i=1:N
             j=findNextSpin(i+1,N);
@@ -38,7 +43,7 @@ function H=fixedkHamiltonian(N,mz,k)
                 %posb=findState(r,kStates);
                 posb=findState(r,activeParents);
                 if posb>0
-                    Rb=R(posb);
+                    Rb=periods(posb);
                     H(a,posb)=H(a,posb)+ 1/2*(Ra/Rb)^(1/2) *exp(-i*k*l/N);
                     %H(a,posb)=H(a,posb)+ 1/2;%*(Ra/Rb)^(1/2);
                 end
