@@ -4,7 +4,7 @@ function isActive=checkParent(N,R,k)
     isActive="false";
     % use periodicity to determine which terms of character table to add
     % calculate sum and determine if parent is active or not
-    if R<N
+    if R<N && R>0
         % may not be active - must calculate sum
         % determine index of momentum
         %kj=(N/2)*k +1;
