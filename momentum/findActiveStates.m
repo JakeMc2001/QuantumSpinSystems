@@ -1,6 +1,6 @@
 % k = 0:(N-1) = placeholder for use with character table
 % actual momentum = k*(pi/2)
-function [ActiveParents,RList]=findActiveParents(N,mz,k)
+function [ActiveParents,RList]=findActiveStates(N,mz,k)
     % list of parent states
     ActiveParents=[];
     % list of sum of character table terms
