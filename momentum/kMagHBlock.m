@@ -2,7 +2,7 @@ function energy=kMagHBlock(N,mz,k)
     energy={};
     index=0;
     numOfStates=0;
-    [s,R]=findActiveStates(N,mz,k);
+    [s,R]=findActiveParents(N,mz,k);
     M=length(s);
     fprintf('Num of active parents: %d\n',M)
     numOfStates = numOfStates + M;
