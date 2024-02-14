@@ -14,7 +14,7 @@ function orbit=getOrbit(parent,period,N)
         if period==N
             k=m;
         else
-            k=N/period;
+            k=m*N/period;
         end
         % assign k value to current state
         orbit(2,m+1)=k;
