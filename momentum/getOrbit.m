@@ -1,3 +1,4 @@
+% returns the orbit of a parent state
 function orbit=getOrbit(parent,period,N)
     % orbit row 1 = state integers
     % orbit row 2 = k value for the integer
@@ -9,16 +10,12 @@ function orbit=getOrbit(parent,period,N)
         newState=cyclebits(parent,m,N);
         % assign new state in orbit to the storage matrix
         orbit(1,m+1)=newState;
-        % calculate k value of current state (units pi)
-        %k=(2*m)/period;
+        % calculate k value of current state (units pi/2)
         if period==N
             k=m;
         else
-            k=2*m;
+            k=N/period;
         end
-        % if k>1
-        %     k=k-2;
-        % end
         % assign k value to current state
         orbit(2,m+1)=k;
     end
