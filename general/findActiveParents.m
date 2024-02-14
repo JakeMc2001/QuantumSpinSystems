@@ -1,9 +1,9 @@
-% k = 0:(N-1) = placeholder for use with character table
+% k = 0:(N-1) = placeholder momentum
 % actual momentum = k*(pi/2)
 function [ActiveParents,RList]=findActiveParents(N,mz,k)
     % list of parent states
     ActiveParents=[];
-    % list of sum of character table terms
+    % list of periodicities
     RList=[];
     for i=0:(2^N -1)
         % check magnetisation of i
@@ -13,10 +13,7 @@ function [ActiveParents,RList]=findActiveParents(N,mz,k)
             continue
         end
         % i has magnetisation mz
-        % obtain character table
-        %charTable=CharacterTable(N);
-        % start sum of character terms with g=1 (always Mk=1)
-        %Mk=1;
+        % initialise periodicity R=-1 == not a parent state
         R=-1;
         for g=1:N
             % find integer of state produced by translating i g times
