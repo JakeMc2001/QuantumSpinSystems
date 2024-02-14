@@ -15,7 +15,7 @@ function PlotEnergykValues(N)
         end
         % calculate actual momentum for legend
         kj=k/2;
-        plot(Sz,real(Energy),'x','DisplayName',sprintf("k=%0.1f%s",kj,'\pi'));
+        plot(Sz,Energy,'x','DisplayName',sprintf("k=%0.1f%s",kj,'\pi'));
     end
     hold off; grid on;
     % limits can be changed to improve layout of plot
@@ -24,5 +24,4 @@ function PlotEnergykValues(N)
     ylabel('Energy/J'); xlabel('Sz');
     title(["Energy Level Diagram",sprintf("N=%d",N)]);
     legend('Location','northeastoutside');
-    legend;
 end
