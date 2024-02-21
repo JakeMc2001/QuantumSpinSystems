@@ -16,6 +16,11 @@ function gamma=hoperation(phi,N,mz,k)
             i=i+1;
             gamma(B(i))=gamma(B(i))+H(i)*phi(a);
             gamma(a)=gamma(a)+H(i)*phi(B(i));
+            if B(i)==a
+                % divide by 2 as diagonal elements are double counted
+                % as the two triangles of H have been combined
+                gamma(a)=gamma(a)/2;
+            end
         end
     end
 end
