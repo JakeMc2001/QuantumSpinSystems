@@ -1,7 +1,7 @@
 % computes n = <phi|phi> = sum_i phi(i)^2
 % then rescales phi so <phi|phi>=1
 % phi is a vector with components i
-function [newPhi,n]=normalize(phi)
+function [newPhi,n]=normalise(phi)
     % create variable to store normalised state
     newPhi=phi;
     % calculate inner product
