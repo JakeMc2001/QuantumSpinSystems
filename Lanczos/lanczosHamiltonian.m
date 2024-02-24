@@ -26,8 +26,8 @@ function [states,H]=lanczosHamiltonian(N,mz,k,Lambda)
     % store state phi2 and n2
     states(:,2)=phi2;
     nValues(2)=n2;
-    H(2,1)=n2;
-    nm=n2;
+    H(2,1)=sqrt(n2);
+    nm=sqrt(n2);
     % carry out lanczos iterations to Lambda-1
     for m=2:(Lambda-1)
         % phi1 = phi_(m-1)
@@ -40,9 +40,11 @@ function [states,H]=lanczosHamiltonian(N,mz,k,Lambda)
         am=dot(phi2,phi3);
         %H(m,m)=am;
         % calculate un-normalised phi3
-        phi3 = phi3 - am*phi2 - nm*phi1;
+        %nm
+        phi3 = phi3 - am*phi2 - sqrt(nm)*phi1;
         % normalise phi3
         [phi3,nm]=normalise(phi3);
+        nm=sqrt(nm);
         %H(m+1,m)=nm;
         % orthogonalise w.r.t. all previous states
         for i=1:m
@@ -63,7 +65,7 @@ function [states,H]=lanczosHamiltonian(N,mz,k,Lambda)
     % perform final lanczos iteration, m=Lambda
     phi3=hoperation(phi2,N,mz,k);
     am=dot(phi2,phi3);
-    phi3 = phi3 - am*phi2 - nm*phi1;
+    phi3 = phi3 - am*phi2 - sqrt(nm)*phi1;
     [phi3,~]=normalise(phi3);
     for i=1:Lambda
         phii=states(:,i);

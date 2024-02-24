@@ -3,12 +3,14 @@ function energyList=momentumEnergySpectrum(N)
     energyList={};
     index=0;
     numOfStates=0;
+    Hterms=genHterms(N);
     for mz=(-N/2):N/2
         magStates=0;
         fprintf('  mz = %d\n',mz)
         for k=0:N-1
             fprintf('\t k = %0.1f\n',k)
-            tempEnergy=kMagHBlock(N,mz,k);
+            %tempEnergy=kMagHBlock(N,mz,k);
+            tempEnergy=generateHamiltonian(N,mz,k,Hterms);
             if isempty(tempEnergy)
                 continue
             end

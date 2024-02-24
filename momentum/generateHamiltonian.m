@@ -1,6 +1,7 @@
 % Hl = interactions of the Hamiltonian - object/class
-function H=generateHamiltonian(N,mz,k,Hterms)
-    [ActiveParents,MkList]=findActiveStates(N,mz,k);
+function energy=generateHamiltonian(N,mz,k,Hterms)
+    energy={};
+    [ActiveParents,MkList]=findActiveParents(N,mz,k);
     D=length(ActiveParents);
     H=zeros(D);
     % number
@@ -27,31 +28,34 @@ function H=generateHamiltonian(N,mz,k,Hterms)
                     H(c,c) = H(c,c) - 1/4;
                 end
             elseif Hl=="SpSm"
-                %if sbits(i)==0 && sbits(j)==1
-                if sbits(i)~=sbits(j)
-                    H(c,c) = H(c,c) - 1/4;
+                if sbits(i)==0 && sbits(j)==1
+                %if sbits(i)~=sbits(j)
                     %flip spins i & j and find H element
                     sflipped=flipSpins(sbits,i,j);
-                    [l,r]=findLj(sflipped,ActiveParents);
+                    [Lj,r]=findLj(sflipped,ActiveParents);
                     b=findState(r,ActiveParents);
                     if b>0
-                        H(c,b) = H(c,b) + 0.5*(MkList(c)/MkList(b))^0.5;
+                        H(c,b) = H(c,b) + real(strength*(MkList(c)/MkList(b))^0.5 *exp(sqrt(-1)*2*pi*k*Lj/N));
                     end
                 end
             elseif Hl=="SmSp"
-                %if sbits(i)==1 && sbits(j)==0
-                if sbits(i)~=sbits(j)
-                    H(c,c) = H(c,c) - 1/4;
+                if sbits(i)==1 && sbits(j)==0
+                %if sbits(i)~=sbits(j)
                     % flip spins
                     sflipped=flipSpins(sbits,i,j);
-                    [l,r]=findLj(sflipped,ActiveParents);
+                    [Lj,r]=findLj(sflipped,ActiveParents);
                     b=findState(r,ActiveParents);
                     if b>0
-                        H(c,b) = H(c,b) + 0.5*(MkList(c)/MkList(b))^0.5;
+                        H(c,b) = H(c,b) + real(strength*(MkList(c)/MkList(b))^0.5 *exp(sqrt(-1)*2*pi*k*Lj/N));
                     end
                 end
             end
         end
     end
-
+    % calculate energy eigenvalues
+    e=eig(H);
+    if isempty(e)
+        return
+    end
+    energy={mz,e.',k};
 end
