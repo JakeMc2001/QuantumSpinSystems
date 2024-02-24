@@ -2,7 +2,7 @@
 % and array B(i) which contains the positions of the non zero elements
 % i= 1,...,e1,e1+1,...,e1+e2,etc
 function [eValues,B,H]=numberOfHelements(N,mz,k)
-    [s,R]=findValidParents(N,mz,k);
+    [s,R]=findActiveParents(N,mz,k);
     M=length(s);
     eValues=zeros(1,M);
     B=[];

@@ -7,9 +7,10 @@ function gamma=hoperation(phi,N,mz,k)
     % obtain arrays of nonzero H elements and positons
     [e,B,H]=numberOfHelements(N,mz,k);
     % M = number of basis states - num of active parents?
-    [s,R]=findValidParents(N,mz,k);
+    [s,~]=findActiveParents(N,mz,k);
     M=length(s);
-    gamma=zeros(1,M);
+    %gamma=zeros(1,M);
+    gamma=phi;
     for a=1:M
         ea=e(a);
         for j=1:ea
