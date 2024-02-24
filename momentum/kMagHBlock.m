@@ -43,5 +43,5 @@ function energy=kMagHBlock(N,mz,k)
     if isempty(e)
         return
     end
-    energy={mz,e.',k};
+    energy={mz,real(e.'),k};
 end

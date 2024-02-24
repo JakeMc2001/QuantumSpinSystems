@@ -3,8 +3,8 @@ function energy=generateHamiltonian(N,mz,k,Hterms)
     energy={};
     [ActiveParents,MkList]=findActiveParents(N,mz,k);
     D=length(ActiveParents);
+    fprintf('Num of active parents: %d\n',D)
     H=zeros(D);
-    % number
     numberOfTerms=length(Hterms.name);
     for c=1:D
         % c = index of parent state
@@ -35,7 +35,7 @@ function energy=generateHamiltonian(N,mz,k,Hterms)
                     [Lj,r]=findLj(sflipped,ActiveParents);
                     b=findState(r,ActiveParents);
                     if b>0
-                        H(c,b) = H(c,b) + real(strength*(MkList(c)/MkList(b))^0.5 *exp(sqrt(-1)*2*pi*k*Lj/N));
+                        H(c,b) = H(c,b) + strength*(MkList(c)/MkList(b))^0.5 *exp(sqrt(-1)*2*pi*k*Lj/N);
                     end
                 end
             elseif Hl=="SmSp"
@@ -46,7 +46,7 @@ function energy=generateHamiltonian(N,mz,k,Hterms)
                     [Lj,r]=findLj(sflipped,ActiveParents);
                     b=findState(r,ActiveParents);
                     if b>0
-                        H(c,b) = H(c,b) + real(strength*(MkList(c)/MkList(b))^0.5 *exp(sqrt(-1)*2*pi*k*Lj/N));
+                        H(c,b) = H(c,b) + strength*(MkList(c)/MkList(b))^0.5 *exp(sqrt(-1)*2*pi*k*Lj/N);
                     end
                 end
             end
@@ -57,5 +57,5 @@ function energy=generateHamiltonian(N,mz,k,Hterms)
     if isempty(e)
         return
     end
-    energy={mz,e.',k};
+    energy={mz,real(e.'),k};
 end
