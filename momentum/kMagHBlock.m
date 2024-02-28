@@ -1,8 +1,10 @@
-function energy=kMagHBlock(N,mz,k)
+function [H,energy]=kMagHBlock(N,mz,k)
+    tic
     % initialise energy eigenstate cell array
     energy={};
     % find the active parents for given mz and k
     [s,R]=findActiveParents(N,mz,k);
+    toc
     % M = number of active parents
     M=length(s);
     % output number of active parents
@@ -44,4 +46,5 @@ function energy=kMagHBlock(N,mz,k)
         return
     end
     energy={mz,real(e.'),k};
+    toc
 end
