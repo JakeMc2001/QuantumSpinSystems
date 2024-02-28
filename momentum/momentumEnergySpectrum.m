@@ -9,7 +9,7 @@ function energyList=momentumEnergySpectrum(N)
         fprintf('  mz = %d\n',mz)
         for k=0:N-1
             fprintf('\t k = %0.1f\n',k)
-            %tempEnergy=kMagHBlock(N,mz,k);
+            %[~,tempEnergy]=kMagHBlock(N,mz,k);
             tempEnergy=generateHamiltonian(N,mz,k,Hterms);
             if isempty(tempEnergy)
                 continue
