@@ -3,7 +3,7 @@
 % Psi = ground state approximation
 % states = list of states phi_m generated
 % H = non-zero Hamiltonian elements organised by column
-function [states,H]=lanczosHamiltonian(N,mz,k,Lambda)
+function [states,H]=lanczosConverge(N,mz,k,Lambda)
     tic
     % find number of basis states
     [e,B,Harray]=numberOfHelements(N,mz,k);
@@ -23,6 +23,9 @@ function [states,H]=lanczosHamiltonian(N,mz,k,Lambda)
     % calculate coefficient a1
     a1=dot(phi1,gamma);
     H(1,1)=a1;
+    % diagonalise H and find current ground state energy
+    energies=eig(H);
+    GSenergy=min(energies);
     % calculate the un-normalised phi2
     phi2 = gamma - a1*phi1;
     % normalise phi1 and obtain n2=inner product of phi1
@@ -49,19 +52,24 @@ function [states,H]=lanczosHamiltonian(N,mz,k,Lambda)
         H(m,m)=am;
         H(m-1,m)=bm;
         H(m,m-1)=bm;
+        lastGSenergy=GSenergy;
+        % diagonalise H and find current ground state energy
+        energies=eig(H);
+        GSenergy=min(energies);
+        % check if ground state energy has converged
+        % within a tolerance, currently 10^-10
+        if abs(lastGSenergy-GSenergy)<10^-10
+            states=states(:,1:m);
+            H=H(1:m,1:m);
+            toc
+            return
+        end
         % calculate un-normalised phi3
         phi3 = gamma - am*phi2 - sqrt(nm)*phi1;
         % normalise phi3
         [phi3,nm]=normalise(phi3);
         % store phi3 and nm
         states(:,m+1)=phi3;
-        % check if Lanczos vector has gone to zero
-        if all(phi3 == 0)
-            states=states(:,1:(m+1));
-            H=H(1:m,1:m);
-            toc
-            return
-        end
         % re-define phi0 and phi1
         phi1=phi2;
         phi2=phi3;
