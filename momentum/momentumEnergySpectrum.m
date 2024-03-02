@@ -22,8 +22,8 @@ function energyList=momentumEnergySpectrum(N)
         end
         fprintf('%d state/s for mz = %d\n',magStates,mz)
     end
-    toc
     fprintf('Total number of states: %d\n',numOfStates)
+    toc
     memoryUsed=sum([whos().bytes]);
     fprintf('Amount of memory used = %d Bytes\n',memoryUsed)
 end

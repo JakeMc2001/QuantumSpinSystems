@@ -47,4 +47,6 @@ function [H,energy]=kMagHBlock(N,mz,k)
     end
     energy={mz,real(e.'),k};
     toc
+    memoryUsed=sum([whos().bytes]);
+    fprintf('Amount of memory used = %d Bytes\n',memoryUsed)
 end
