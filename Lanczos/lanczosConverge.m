@@ -25,7 +25,9 @@ function [states,H]=lanczosConverge(N,mz,k,Lambda)
     H(1,1)=a1;
     % diagonalise H and find current ground state energy
     energies=eig(H);
-    GSenergy=min(energies);
+    % create array to store ground state energy
+    energyList=zeros(1,Lambda);
+    energyList(1)=min(energies);
     % calculate the un-normalised phi2
     phi2 = gamma - a1*phi1;
     % normalise phi1 and obtain n2=inner product of phi1
@@ -52,16 +54,19 @@ function [states,H]=lanczosConverge(N,mz,k,Lambda)
         H(m,m)=am;
         H(m-1,m)=bm;
         H(m,m-1)=bm;
-        lastGSenergy=GSenergy;
         % diagonalise H and find current ground state energy
         energies=eig(H);
-        GSenergy=min(energies);
+        energyList(m)=min(energies);
         % check if ground state energy has converged
         % within a tolerance, currently 10^-10
-        if abs(lastGSenergy-GSenergy)<10^-10
+        if abs(energyList(m-1)-energyList(m))<10^-10
             states=states(:,1:m);
             H=H(1:m,1:m);
+            energyList=energyList(1:m);
+            plotGSEnergy(energyList,m,N);
             toc
+            memoryUsed=sum([whos().bytes]);
+            fprintf('Amount of memory used = %d Bytes\n',memoryUsed)
             return
         end
         % calculate un-normalised phi3
@@ -81,5 +86,8 @@ function [states,H]=lanczosConverge(N,mz,k,Lambda)
     H(Lambda,Lambda)=am;
     H(Lambda-1,Lambda)=bm;
     H(Lambda,Lambda-1)=bm;
+    plotGSEnergy(energyList,m,N);
     toc
+    memoryUsed=sum([whos().bytes]);
+    fprintf('Amount of memory used = %d Bytes\n',memoryUsed)
 end

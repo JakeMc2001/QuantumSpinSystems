@@ -7,7 +7,6 @@ function [eValues,B,H]=numberOfHelements(N,mz,k)
     eValues=zeros(1,M);
     B=[];
     H=[];
-    %Hmatrix=zeros(M);
     for a=1:M
         % array stores H elements
         Ha=zeros(1,M);
@@ -17,16 +16,13 @@ function [eValues,B,H]=numberOfHelements(N,mz,k)
             j=findNextSpin(i+1,N);
             if sbits(i)==sbits(j)
                 Ha(a) = Ha(a) + 1/4;
-                %Hmatrix(a,a) = Hmatrix(a,a) + 1/4;
             else
                 Ha(a) = Ha(a) - 1/4;
-                %Hmatrix(a,a) = Hmatrix(a,a) - 1/4;
                 sflipped=flipSpins(sbits,i,j);
                 [l,r]=findLj(sflipped,s);
                 b=findState(r,s);
                 if b>=0
                     Ha(b) = Ha(b) + 0.5*(R(a)/R(b))^0.5 *exp(sqrt(-1)*2*pi*k*l/N);
-                    %Hmatrix(a,b) = Hmatrix(a,b) + 0.5*(R(a)/R(b))^0.5 *exp(sqrt(-1)*2*pi*k*l/N);
                 end
             end
         end
