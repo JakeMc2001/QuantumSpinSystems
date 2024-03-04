@@ -1,6 +1,7 @@
 % k = 0:(N-1) = placeholder momentum
 % actual momentum = k*(pi/2)
 function [ActiveParents,RList]=findActiveParents(N,mz,k)
+    tic
     % list of active parent states
     ActiveParents=[];
     % list of periodicities of active parents
@@ -41,4 +42,5 @@ function [ActiveParents,RList]=findActiveParents(N,mz,k)
             end
         end
     end
+    toc
 end

@@ -8,6 +8,7 @@ function [states,H]=lanczosConverge(N,mz,k,Lambda)
     % find number of basis states
     [e,B,Harray]=numberOfHelements(N,mz,k);
     M=length(e);
+    fprintf('numberOfHelements:\n')
     toc
     fprintf('Num of active parents: %d\n',M)
     % each column of states will be a generated basis state
