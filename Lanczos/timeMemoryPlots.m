@@ -19,7 +19,7 @@ function timeMemoryPlots()
     % lanczosConverge
     lanczosN=[12,14,16,18,20,22,24];
     lanczosTime=[0.173315,0.372668,1.223175,5.379136,31.017401,256.08741,2808.556323];
-    lanczosMemory=[27488,90688,303664,1241408,4250640,17724000,63496320];
+    lanczosMemory=[14464,74080,154256,891592,2030160,11967568,28326448];
     
     figure; plot(fullN,fullMemory,'DisplayName','No Symmetries'); hold on;
     plot(magN,magMemory,'DisplayName','Sz Symmetry');
