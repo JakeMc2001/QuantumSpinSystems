@@ -2,6 +2,7 @@
 % actual momentum = k*(pi/2)
 function [ActiveParents,RList]=findActiveParents(N,mz,k)
     tic
+    CharTable=CharacterTable(N);
     % list of active parent states
     ActiveParents=[];
     % list of periodicities of active parents
@@ -32,11 +33,22 @@ function [ActiveParents,RList]=findActiveParents(N,mz,k)
         end
         % i must be a parent state
         % check if i is an active parent
-        if R>0
-            % get the orbit of the parent state
-            orbit=getOrbit(i,R,N);
-            % check if there is momentum k in the orbit
-            if find(orbit(2,:)==k)
+        if R==N
+            ActiveParents=[ActiveParents i];
+            RList=[RList R];
+        elseif R==1
+            if k==0
+                ActiveParents=[ActiveParents i];
+                RList=[RList R];
+            end
+        elseif R>0
+            sum=1;
+            index=R+1;
+            while index<N
+                sum = sum + conj(CharTable(k+1,index));
+                index = index + R;
+            end
+            if abs(sum)>10^-4
                 ActiveParents=[ActiveParents i];
                 RList=[RList R];
             end
