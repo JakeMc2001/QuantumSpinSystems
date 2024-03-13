@@ -1,0 +1,13 @@
+label   x  		y
+k0	0  		0
+k1	pi/sqrt(3)	-pi/3
+k2	pi/sqrt(3)	pi/3
+k3	0		2*pi/3
+k4	-pi/sqrt(3)	pi/3
+k5	-pi/sqrt(3)	-pi/3
+k6	0		-2*pi/3
+k7	0		4*pi/3
+k8	0		-4*pi/3
+k9	2*pi/sqrt(3)	0
+k10	pi/sqrt(3)	pi
+k11	-pi/sqrt(3)	pi
