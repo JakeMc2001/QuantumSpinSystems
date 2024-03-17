@@ -4,8 +4,9 @@
 % H = non-zero Hamiltonian elements organised by column
 function H=lanczosConverge(N,mz,k,Lambda)
     tic
+    Hterms=genHterms(N);
     % find number of basis states
-    [e,B,Harray]=numberOfHelements(N,mz,k);
+    [e,B,Harray]=numberOfHelements(N,mz,k,Hterms);
     M=length(e);
     fprintf('numberOfHelements:\n')
     toc
