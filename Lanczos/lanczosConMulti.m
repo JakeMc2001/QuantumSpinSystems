@@ -4,7 +4,8 @@
 function H=lanczosConMulti(N,mz,k,Lambda)
     tic
     % find number of basis states
-    [e,B,Harray]=numberOfHelements(N,mz,k);
+    Hterms=genHterms(N);
+    [e,B,Harray]=numberOfHelements(N,mz,k,Hterms);
     M=length(e);
     fprintf('numberOfHelements:\n')
     toc
