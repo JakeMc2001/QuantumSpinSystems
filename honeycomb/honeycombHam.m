@@ -3,6 +3,7 @@
 % Gz and Gxy are the gamma terms
 % sites for x, y and z bonds are stored in files
 function Hterms=honeycombHam(J,Kz,Kxy,Gz,Gxy)
+    tic
     Hterms = interactions;
     % load bond site data from files
     sizeA=[2 Inf];
@@ -41,4 +42,5 @@ function Hterms=honeycombHam(J,Kz,Kxy,Gz,Gxy)
         Hterms=Hterms.addHterm("SpSp",2,bond,Gz/(2*sqrt(-1)));
         Hterms=Hterms.addHterm("SmSm",2,bond,-Gz/(2*sqrt(-1)));
     end
+    toc
 end
