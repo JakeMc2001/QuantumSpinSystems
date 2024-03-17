@@ -5,7 +5,7 @@ function [ActiveParents,parentsR]=activeParentsHoney24(k)
     tic
     N=12;
     % read list of parents
-    fileID=fopen("Honey24Parents.txt");
+    fileID=fopen("honeycomb/Honey24Parents.txt");
     sizeA=[2 Inf];
     parentsData=fscanf(fileID,'%i %i',sizeA);
     fclose(fileID);
