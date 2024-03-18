@@ -5,6 +5,7 @@ function [eValues,B,H]=numberOfHelements(N,mz,k,Hterms)
     [s,R]=findActiveParents(N,mz,k);
     fprintf('findActiveParents:\n')
     toc
+    charTable=CharacterTable(N);
     M=length(s);
     eValues=zeros(1,M);
     B=[];
@@ -33,16 +34,16 @@ function [eValues,B,H]=numberOfHelements(N,mz,k,Hterms)
                     [Lj,r]=findLj(sflipped,s);
                     b=findState(r,s);
                     if b>0
-                        Ha(b) = Ha(b) + strength*(R(a)/R(b))^0.5 *exp(sqrt(-1)*2*pi*k*Lj/N);
+                        Ha(b) = Ha(b) + strength*(R(a)/R(b))^0.5 *charTable(k+1,Lj+1);
                     end
                 end
             elseif Hl=="SmSp"
                 if sbits(i)==1 && sbits(j)==0
-                    slipped=flipSpins(sbits,i,j);
-                    [Lj,r]=findLj(slipped,s);
+                    sflipped=flipSpins(sbits,i,j);
+                    [Lj,r]=findLj(sflipped,s);
                     b=findState(r,s);
                     if b>0
-                        Ha(b) = Ha(b) + strength*(R(a)/R(b))^0.5 *exp(sqrt(-1)*2*pi*k*Lj/N);
+                        Ha(b) = Ha(b) + strength*(R(a)/R(b))^0.5 *charTable(k+1,Lj+1);
                     end
                 end
             end
