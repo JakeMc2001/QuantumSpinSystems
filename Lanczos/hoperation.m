@@ -11,7 +11,6 @@ function gamma=hoperation(phi,e,B,H)
         ea=e(a);
         for j=1:ea
             i=i+1;
-            B(i)
             gamma(a)=gamma(a)+H(i)*phi(B(i));
         end
     end
