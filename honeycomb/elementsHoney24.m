@@ -13,14 +13,10 @@ function [eValues,B,H]=elementsHoney24(Hterms,k)
     M=length(s);
     eValues=zeros(1,M);
     numberOfTerms=length(Hterms.name);
-    %H=zeros(1,M*numberOfTerms);
-    %B=zeros(1,M*numberOfTerms);
     B=[];
     H=[];
-    %index=1;
     % loop over parent states
     for a=1:M
-        %tic
         a
         Ha=zeros(1,M);
         sa=s(a);
@@ -44,7 +40,6 @@ function [eValues,B,H]=elementsHoney24(Hterms,k)
                     b=findState(r,s);
                     if b>0
                         Ha(b) = Ha(b) + strength*(R(a)/R(b))^0.5 *charTable(k+1,Lj+1);
-                        %Ha(b) = Ha(b) + strength*(R(a)/R(b))^0.5 *exp(sqrt(-1)*2*pi*k*Lj/N);
                     end
                 end
             elseif Hl=="SpSp" && sbits(i)==0 && sbits(j)==0
@@ -55,7 +50,6 @@ function [eValues,B,H]=elementsHoney24(Hterms,k)
                 b=findState(r,s);
                 if b>0
                     Ha(b) = Ha(b) + strength*(R(a)/R(b))^0.5 *charTable(k+1,Lj+1);
-                    %Ha(b) = Ha(b) + strength*(R(a)/R(b))^0.5 *exp(sqrt(-1)*2*pi*k*Lj/N);
                 end
             elseif Hl=="SmSm" && sbits(i)==1 && sbits(j)==1
                 sflipped=sbits;
@@ -65,7 +59,6 @@ function [eValues,B,H]=elementsHoney24(Hterms,k)
                 b=findState(r,s);
                 if b>0
                     Ha(b) = Ha(b) + strength*(R(a)/R(b))^0.5 *charTable(k+1,Lj+1);
-                    %Ha(b) = Ha(b) + strength*(R(a)/R(b))^0.5 *exp(sqrt(-1)*2*pi*k*Lj/N);
                 end
             elseif Hl=="SpSz" && sbits(i)==0
                 sflipped=sbits;
@@ -74,7 +67,6 @@ function [eValues,B,H]=elementsHoney24(Hterms,k)
                 b=findState(r,s);
                 if b>0
                     Ha(b) = Ha(b) - 0.5*strength*(R(a)/R(b))^0.5 *charTable(k+1,Lj+1);
-                    %Ha(b) = Ha(b) + strength*(R(a)/R(b))^0.5 *exp(sqrt(-1)*2*pi*k*Lj/N);
                 end
             elseif Hl=="SmSz" && sbits(i)==1
                 sflipped=sbits;
@@ -106,9 +98,5 @@ function [eValues,B,H]=elementsHoney24(Hterms,k)
         eValues(a)=sum(nonZeroHa);
         B = [B find(Ha)];
         H = [H Ha(find(Ha))];
-        %B(index:eValues(a))=find(Ha);
-        %H(index:eValues(a))=Ha(nonZeroHa);
-        %index = index + eValues(a);
-        %toc
     end
 end

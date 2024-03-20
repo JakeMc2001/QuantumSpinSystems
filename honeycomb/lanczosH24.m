@@ -1,4 +1,3 @@
-% N = number of spins
 % Lambda = number of lanczos iterations
 % Psi = ground state approximation
 % H = non-zero Hamiltonian elements organised by column
@@ -54,15 +53,15 @@ function H=lanczosH24(k,Lambda,J,Kz,Kxy,Gz,Gxy)
         energyList(m)=min(real(energies));
         % check if ground state energy has converged
         % within a tolerance, currently 10^-10
-        if abs(energyList(m-1)-energyList(m))<10^-10
-            H=H(1:m,1:m);
-            energyList=energyList(1:m);
-            plotGSEnergy(energyList,m,N);
-            toc
-            memoryUsed=sum([whos().bytes]);
-            fprintf('Amount of memory used = %d Bytes\n',memoryUsed)
-            return
-        end
+        % if abs(energyList(m-1)-energyList(m))<10^-10
+        %     H=H(1:m,1:m);
+        %     energyList=energyList(1:m);
+        %     plotGSEnergy(energyList,m,N);
+        %     toc
+        %     memoryUsed=sum([whos().bytes]);
+        %     fprintf('Amount of memory used = %d Bytes\n',memoryUsed)
+        %     return
+        % end
         % calculate un-normalised phi3
         phi3 = gamma - am*phi2 - sqrt(nm)*phi1;
         % normalise phi3
@@ -78,7 +77,7 @@ function H=lanczosH24(k,Lambda,J,Kz,Kxy,Gz,Gxy)
     H(Lambda,Lambda)=am;
     H(Lambda-1,Lambda)=bm;
     H(Lambda,Lambda-1)=bm;
-    plotGSEnergy(real(energyList),Lambda,N);
+    %plotGSEnergy(real(energyList),Lambda,N);
     toc
     memoryUsed=sum([whos().bytes]);
     fprintf('Amount of memory used = %d Bytes\n',memoryUsed)
