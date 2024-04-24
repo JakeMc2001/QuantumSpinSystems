@@ -1,12 +1,10 @@
 % Lambda = number of lanczos iterations
 % Psi = ground state approximation
 % H = non-zero Hamiltonian elements organised by column
-function H=multiLanczosH24(k,Lambda,J,Kz,Kxy,Gz,Gxy)
-%function H=multiLanczosH24(k,Lambda,Jz,Jxy,Kz,Kxy,Gz,Gxy)
+function H=ConvergelanczosH24(k,Lambda,J,Kz,Kxy,Gz,Gxy)
     N=24;
     tic
     Hterms=honeycombHam(J,Kz,Kxy,Gz,Gxy);
-    %Hterms=AnihoneycombHam(Jz,Jxy,Kz,Kxy,Gz,Gxy);
     % find number of basis states
     [e,B,Harray]=elementsHoney24(Hterms,k);
     M=length(e);
@@ -25,12 +23,18 @@ function H=multiLanczosH24(k,Lambda,J,Kz,Kxy,Gz,Gxy)
     % diagonalise H and find current ground state energy
     energies=eig(H);
     % create array to store ground state energy
-    energyList=zeros(5,Lambda);
-    energyList(1:5,1)=energies(1:5);
+    energyList=zeros(1,Lambda);
+    energyList(1)=min(energies);
     % calculate the un-normalised phi2
     phi2 = gamma - a1*phi1;
     % normalise phi1 and obtain n2=inner product of phi1
     [phi2,nm]=normalise(phi2);
+    % check if phi2 has gone to zero
+    if all(phi2 == 0)
+        H=H(1:2,1:2);
+        toc
+        return
+    end
     % carry out lanczos iterations to Lambda-1
     for m=2:(Lambda-1)
         % phi1 = phi_(m-1)
@@ -46,13 +50,13 @@ function H=multiLanczosH24(k,Lambda,J,Kz,Kxy,Gz,Gxy)
         H(m,m-1)=bm;
         % diagonalise H and find current ground state energy
         energies=eig(H);
-        energyList(1:5,m)=energies(1:5);
+        energyList(m)=min(real(energies));
         % check if ground state energy has converged
         % within a tolerance, currently 10^-10
-        if abs(energyList(1,m-1)-energyList(1,m))<10^-10
+        if abs(energyList(m-1)-energyList(m))<10^-10
             H=H(1:m,1:m);
-            energyList=energyList(1:5,1:m);
-            plotlowestEnergies(real(energyList),m,N);
+            energyList=energyList(1:m);
+            plotGSEnergy(energyList,m,N);
             toc
             memoryUsed=sum([whos().bytes]);
             fprintf('Amount of memory used = %d Bytes\n',memoryUsed)
@@ -73,9 +77,7 @@ function H=multiLanczosH24(k,Lambda,J,Kz,Kxy,Gz,Gxy)
     H(Lambda,Lambda)=am;
     H(Lambda-1,Lambda)=bm;
     H(Lambda,Lambda-1)=bm;
-    energies=eig(H);
-    energyList(1:5,Lambda)=energies(1:5);
-    plotlowestEnergies(real(energyList),Lambda,N);
+    plotGSEnergy(real(energyList),Lambda,N);
     toc
     memoryUsed=sum([whos().bytes]);
     fprintf('Amount of memory used = %d Bytes\n',memoryUsed)

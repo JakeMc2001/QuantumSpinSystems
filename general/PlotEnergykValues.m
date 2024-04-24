@@ -1,9 +1,10 @@
 % plots energy level diagram with different colours
 % for different k values
 % EnergyLevels is a cell array with mz, energy and k values
-function PlotEnergykValues(N)
+%function PlotEnergykValues(N)
+function PlotEnergykValues(EnergyLevels,N)
     markers=['o','+','*','.','x','s','d','^','v','>','<','p','h'];
-    EnergyLevels=momentumEnergySpectrum(N);
+    %EnergyLevels=momentumEnergySpectrum(N);
     figure; hold on;
     for k=0:N-1
         Sz=[];
@@ -20,8 +21,8 @@ function PlotEnergykValues(N)
     end
     hold off; grid on;
     % limits can be changed to improve layout of plot
-    %ylim([-4.0 2.2]);
-    %xlim([-4.2 4.2]);
+    ylim([-8.5 5]);
+    xlim([-9.2 9.2]);
     ylabel('Energy/J'); xlabel('Sz');
     title(["Energy Level Diagram",sprintf("N=%d",N)]);
     legend('Location','northeastoutside');

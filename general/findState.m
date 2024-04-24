@@ -1,4 +1,5 @@
 function b=findState(target,states)
+    %[~,b]=ismember(target,states);
     M=length(states);
     bmin=1;
     bmax=M;
@@ -18,8 +19,8 @@ function b=findState(target,states)
             end
         elseif target>states(b)
             bmin=b+1;
-            if bmin>length(states)
-                bmin=length(states);
+            if bmin>M
+                bmin=M;
             end
         else
             return

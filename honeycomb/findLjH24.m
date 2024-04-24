@@ -1,13 +1,18 @@
 % findLj function for 24-site honeycomb lattice
 function [lj,parent]=findLjH24(b,parents,ops)
     bInt=bin2dec(num2str(b));
-    if findState(bInt,parents)==-1
+    %if findState(bInt,parents)==-1
+    [~,b]=ismember(bInt,parents);
+    %if findState(bInt,parents)==0
+    if b==0
         % iterate over all translations of spin sites
         for g=2:12
             bj=applyTranslation(bInt,24,ops(g,:));
             % search for current translation in parent list
-            posb=findState(bj,parents);
-            if posb~=-1
+            %posb=findState(bj,parents);
+            [~,posb]=ismember(bj,parents);
+            %if posb~=-1
+            if posb>0
                 % current translation is a parent state
                 lj=g-1;
                 parent=parents(posb);

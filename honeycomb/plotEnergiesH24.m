@@ -1,11 +1,12 @@
 % obtains energy spectra for different parameters and plots them against g
 function energyList=plotEnergiesH24(gStart,gIndex,gEnd)
-    J=1;
+    J=0;
     Kz=-1;
     Gz=1/2;
     energyList=[];
     figure; hold on;
     for g=gStart:gIndex:gEnd
+        g
         Kxy=g*Kz;
         Gxy=g*Gz;
         H=lanczosH24(0,50,J,Kz,Kxy,Gz,Gxy);
