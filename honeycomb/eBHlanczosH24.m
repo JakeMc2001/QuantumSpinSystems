@@ -53,7 +53,7 @@ function [H,energyList2]=eBHlanczosH24(Lambda,e,B,Harray)
         % check if ground state energy has converged
         % within a tolerance, currently 10^-10
         %if abs(energyList(m-1)-energyList(m))<10^-10
-        if abs(energyList(1,m-1)-energyList(1,m))<10^-5
+        if abs(energyList(1,m-1)-energyList(1,m))<10^-10
             H=H(1:m,1:m);
             %energyList=energyList(1:m);
             energyList=energyList(1:5,1:m);

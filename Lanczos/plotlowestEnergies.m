@@ -3,7 +3,7 @@ function plotlowestEnergies(energyList,steps,N)
     figure; hold on;
     stepsList=1:steps;
     for i=1:height(energyList)
-        plot(stepsList,energyList(i,:));
+        plot(stepsList,energyList(i,:),'*-');
     end
     hold off; grid on;
     xlabel('Lanczos iterations');
