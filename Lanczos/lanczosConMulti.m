@@ -20,7 +20,8 @@ function H=lanczosConMulti(N,mz,k,Lambda)
     a1=dot(phi1,gamma);
     H(1,1)=a1;
     % diagonalise H and find current ground state energy
-    energies=eig(H);
+    %energies=eig(H);
+    energies=sort(real(eig(H)));
     % create array to store ground state energy
     energyList=zeros(5,Lambda);
     energyList(1:5,1)=energies(1:5);
@@ -42,8 +43,19 @@ function H=lanczosConMulti(N,mz,k,Lambda)
         H(m-1,m)=bm;
         H(m,m-1)=bm;
         % diagonalise H and find current ground state energy
-        energies=eig(H);
+        %energies=eig(H);
+        energies=sort(real(eig(H)));
         energyList(1:5,m)=energies(1:5);
+        % check for convergence of ground state
+        if abs(energyList(1,m-1)-energyList(1,m))<10^-10
+            H=H(1:m,1:m);
+            energyList=energyList(:,1:m);
+            plotlowestEnergies(real(energyList),m,N);
+            toc
+            memoryUsed=sum([whos().bytes]);
+            fprintf('Amount of memory used = %d Bytes\n',memoryUsed)
+            return
+        end
         % calculate un-normalised phi3
         phi3 = gamma - am*phi2 - sqrt(nm)*phi1;
         % normalise phi3
@@ -59,7 +71,8 @@ function H=lanczosConMulti(N,mz,k,Lambda)
     H(Lambda,Lambda)=am;
     H(Lambda-1,Lambda)=bm;
     H(Lambda,Lambda-1)=bm;
-    energies=eig(H);
+    %energies=eig(H);
+    energies=sort(real(eig(H)));
     energyList(1:5,Lambda)=energies(1:5);
     plotlowestEnergies(real(energyList),Lambda,N);
     toc
