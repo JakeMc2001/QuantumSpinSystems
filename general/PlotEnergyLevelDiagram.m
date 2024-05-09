@@ -7,8 +7,8 @@ function PlotEnergyLevelDiagram(EnergyLevels,SystemDescription)
     end
     hold off;
     % y limits can be changed to improve layout of plot
-    ylim([-8 4.2]);
-    xlim([-8.2 8.2]);
+    %ylim([-8 4.2]);
+    %xlim([-8.2 8.2]);
     ylabel('Energy/J'); xlabel('Sz');
     title(["Energy Level Diagram",SystemDescription]);
 end

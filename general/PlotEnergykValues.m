@@ -21,8 +21,8 @@ function PlotEnergykValues(EnergyLevels,N)
     end
     hold off; grid on;
     % limits can be changed to improve layout of plot
-    ylim([-8.5 5]);
-    xlim([-9.2 9.2]);
+    %ylim([-8.5 5]);
+    %xlim([-9.2 9.2]);
     ylabel('Energy/J'); xlabel('Sz');
     title(["Energy Level Diagram",sprintf("N=%d",N)]);
     legend('Location','northeastoutside');

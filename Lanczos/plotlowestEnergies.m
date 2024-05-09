@@ -5,8 +5,8 @@ function plotlowestEnergies(energyList,steps,N)
     for i=1:height(energyList)
         plot(stepsList,energyList(i,:),'*-');
     end
-    hold off; grid on;
+    hold off; grid on; grid minor;
     xlabel('Lanczos iterations');
     ylabel('Energy / J');
-    title(["Convergence of 5 lowest Energies",sprintf("N=%d",N)]);
+    title(["Lanczos convergence",sprintf("N=%d",N)]);
 end
