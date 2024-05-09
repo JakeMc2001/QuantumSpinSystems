@@ -9,14 +9,18 @@ function [eValues,B,H]=NewelementsHoney24(Hterms,k)
         ops(:,m)=double(str2sym(opsData{m+1}));
     end
     charTable=CharTableHoney24();
-    fileID = fopen("honeycomb/H24ActiveParentsk0.txt");
+    %fileID = fopen("honeycomb/H24ActiveParentsk0.txt");
+    filename="H24ActiveParentsk"+k+".txt";
+    fileID = fopen(filename);
     sizeA=[2 Inf];
     parentsData = fscanf(fileID,'%i %i',sizeA);
     fclose(fileID);
     s=parentsData(1,:);
     %R=parentsData(2,:);
     M=length(s);
-    fileID = fopen("honeycomb/H24LookUpk0.txt");
+    %fileID = fopen("honeycomb/H24LookUpk0.txt");
+    filename="H24LookUpk"+k+".txt";
+    fileID = fopen(filename);
     sizeA=[4 Inf];
     lookUpTable = fscanf(fileID,'%i %i %i %i',sizeA);
     fclose(fileID);
@@ -28,19 +32,24 @@ function [eValues,B,H]=NewelementsHoney24(Hterms,k)
     % loop over parent states
     tic
     for a=1:M
+    %for a=102050:102055
         %tic
-        a
-        %completion=(a/M)*100;
-        %fprintf('Completion %0.5f%%\n',completion)
+        %a
+        completion=(a/M)*100;
+        fprintf('Completion %0.5f%%\n',completion)
         Ha=zeros(1,M);
         sa=s(a);
+        %[Lja,~,~]=newfindLjH24(sa,lookUpTable);
         sbits=bitget(sa,N:-1:1);
         for l=1:numberOfTerms
+            strength=Hterms.strength(l);
+            if strength==0
+                continue
+            end
             Hl=Hterms.name(l);
             sites=Hterms.sites(l);
             i=sites{1}(1)+1;
             j=sites{1}(2)+1;
-            strength=Hterms.strength(l);
             if Hl=="SzSz"
                 if sbits(i)==sbits(j)
                     Ha(a) = Ha(a) + (1/4)*strength;
@@ -53,7 +62,7 @@ function [eValues,B,H]=NewelementsHoney24(Hterms,k)
                     sflipped=bin2dec(num2str(sflipped));
                     [Lj,~,b]=newfindLjH24(sflipped,lookUpTable);
                     if b>0
-                        %Ha(b) = Ha(b) + strength*(R(a)/R(b))^0.5 *charTable(k+1,Lj+1);
+                        %Ha(b) = Ha(b) + strength*(Lja/Lj)^0.5 *charTable(k+1,Lj+1);
                         Ha(b) = Ha(b) + strength*charTable(k+1,Lj+1);
                     end
                 end
@@ -64,7 +73,7 @@ function [eValues,B,H]=NewelementsHoney24(Hterms,k)
                 sflipped=bin2dec(num2str(sflipped));
                 [Lj,~,b]=newfindLjH24(sflipped,lookUpTable);
                 if b>0
-                    %Ha(b) = Ha(b) + strength*(R(a)/R(b))^0.5 *charTable(k+1,Lj+1);
+                    %Ha(b) = Ha(b) + strength*(Lja/Lj)^0.5 *charTable(k+1,Lj+1);
                     Ha(b) = Ha(b) + strength*charTable(k+1,Lj+1);
                 end
             elseif Hl=="SpSz" && sbits(i)==0
@@ -73,7 +82,7 @@ function [eValues,B,H]=NewelementsHoney24(Hterms,k)
                 sflipped=bin2dec(num2str(sflipped));
                 [Lj,~,b]=newfindLjH24(sflipped,lookUpTable);
                 if b>0
-                    %Ha(b) = Ha(b) - 0.5*strength*(R(a)/R(b))^0.5 *charTable(k+1,Lj+1);
+                    %Ha(b) = Ha(b) - 0.5*strength*(Lja/Lj)^0.5 *charTable(k+1,Lj+1);
                     Ha(b) = Ha(b) - 0.5*strength*charTable(k+1,Lj+1);
                 end
             elseif Hl=="SmSz" && sbits(i)==1
@@ -82,7 +91,7 @@ function [eValues,B,H]=NewelementsHoney24(Hterms,k)
                 sflipped=bin2dec(num2str(sflipped));
                 [Lj,~,b]=newfindLjH24(sflipped,lookUpTable);
                 if b>0
-                    %Ha(b) = Ha(b) + 0.5*strength*(R(a)/R(b))^0.5 *charTable(k+1,Lj+1);
+                    %Ha(b) = Ha(b) + 0.5*strength*(Lja/Lj)^0.5 *charTable(k+1,Lj+1);
                     Ha(b) = Ha(b) + 0.5*strength*charTable(k+1,Lj+1);
                 end
             elseif Hl=="SzSp" && sbits(j)==0
@@ -91,7 +100,7 @@ function [eValues,B,H]=NewelementsHoney24(Hterms,k)
                 sflipped=bin2dec(num2str(sflipped));
                 [Lj,~,b]=newfindLjH24(sflipped,lookUpTable);
                 if b>0
-                    %Ha(b) = Ha(b) - 0.5*strength*(R(a)/R(b))^0.5 *charTable(k+1,Lj+1);
+                    %Ha(b) = Ha(b) - 0.5*strength*(Lja/Lj)^0.5 *charTable(k+1,Lj+1);
                     Ha(b) = Ha(b) - 0.5*strength*charTable(k+1,Lj+1);
                 end
             elseif Hl=="SzSm" && sbits(j)==1
@@ -100,7 +109,7 @@ function [eValues,B,H]=NewelementsHoney24(Hterms,k)
                 sflipped=bin2dec(num2str(sflipped));
                 [Lj,~,b]=newfindLjH24(sflipped,lookUpTable);
                 if b>0
-                    %Ha(b) = Ha(b) + 0.5*strength*(R(a)/R(b))^0.5 *charTable(k+1,Lj+1);
+                    %Ha(b) = Ha(b) + 0.5*strength*(Lja/Lj)^0.5 *charTable(k+1,Lj+1);
                     Ha(b) = Ha(b) + 0.5*strength*charTable(k+1,Lj+1);
                 end
             elseif Hl=="SpSp" && sbits(i)==0 && sbits(j)==0
@@ -110,7 +119,7 @@ function [eValues,B,H]=NewelementsHoney24(Hterms,k)
                 sflipped=bin2dec(num2str(sflipped));
                 [Lj,~,b]=newfindLjH24(sflipped,lookUpTable);
                 if b>0
-                    %Ha(b) = Ha(b) + strength*(R(a)/R(b))^0.5 *charTable(k+1,Lj+1);
+                    %Ha(b) = Ha(b) + strength*(Lja/Lj)^0.5 *charTable(k+1,Lj+1);
                     Ha(b) = Ha(b) + strength*charTable(k+1,Lj+1);
                 end
             end
@@ -118,7 +127,7 @@ function [eValues,B,H]=NewelementsHoney24(Hterms,k)
         nonZeroHa=(abs(Ha)>10e-5);
         ea=sum(nonZeroHa);
         eValues(a)=ea;
-        indices=find(Ha);
+        indices=find(abs(Ha)>10e-5);
         %B = [B indices];
         %H = [H Ha(indices)];
         B(count:(count+ea-1))=indices;

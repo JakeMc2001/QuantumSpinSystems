@@ -1,7 +1,7 @@
 % this function returns active parent states for the 24-site honeycomb lattice
 % with momentum k
 % uses operations.txt which stores all translations of the spin sites
-function [parents,RList,lookUpTable]=activeNewparentsHoney24(k)
+function [parents,RList,lookUpTable]=RactiveNewparentsHoney24(k)
     tic
     parents=zeros(1,2^24);
     RList=zeros(1,2^24);
@@ -17,40 +17,38 @@ function [parents,RList,lookUpTable]=activeNewparentsHoney24(k)
     fileID = fopen("honeycomb/operations.txt");
     opsData = textscan(fileID,'%s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s','HeaderLines',1);
     fclose(fileID);
-    %ops = [];
     ops=zeros(12,24);
     % format operations into a matrix
     for m=1:24
-        %ops = [ops double(str2sym(opsData{m+1}))];
         ops(:,m)=double(str2sym(opsData{m+1}));
     end
-    %for i=0:(2^24 -1)
-    for i=0:100
+    for i=0:(2^24 -1)
         if lookUpTable(2,i+1)~=-1
             continue
         end
         i
-        orbit=zeros(1,numberOfTranslations);
-        for g=1:numberOfTranslations
+        orbit=zeros(1,numberOfTranslations-1);
+        for g=2:numberOfTranslations
             translation=ops(g,:);
             newState=applyTranslation(i,N,translation);
-            orbit(g)=newState;
+            orbit(g-1)=newState;
         end
-        % identify parent
         uniqueOrbit=unique(orbit,'stable');
         numberOfChildren=length(uniqueOrbit);
+        if numberOfChildren<k+1
+            continue
+        end
         [parent,R]=min(orbit);
-        % check if parent is active
-        if R==1 && k==0
+        if parent < i
+            continue
+        end
+        if k==0
             numberOfParents=numberOfParents+1;
             parents(numberOfParents)=parent;
             RList(numberOfParents)=R;
             lookUpTable(2,uniqueOrbit+1)=parent;
-            %lookUpTable(2,orbit+1)=parent;
             lookUpTable(3,uniqueOrbit+1)=1:numberOfChildren;
-            %lookUpTable(3,orbit+1)=1:numberOfChildren;
             lookUpTable(4,uniqueOrbit+1)=numberOfParents;
-            %lookUpTable(4,orbit+1)=numberOfParents;
         else
             sum=1;
             index=R+1;
@@ -63,11 +61,8 @@ function [parents,RList,lookUpTable]=activeNewparentsHoney24(k)
                 parents(numberOfParents)=parent;
                 RList(numberOfParents)=R;
                 lookUpTable(2,uniqueOrbit+1)=parent;
-                %lookUpTable(2,orbit+1)=parent;
                 lookUpTable(3,uniqueOrbit+1)=1:numberOfChildren;
-                %lookUpTable(3,orbit+1)=1:numberOfChildren;
                 lookUpTable(4,uniqueOrbit+1)=numberOfParents;
-                %lookUpTable(4,orbit+1)=numberOfParents;
             end
         end
     end
