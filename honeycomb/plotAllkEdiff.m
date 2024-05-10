@@ -234,6 +234,6 @@ function [k0energies,k2energies,k9energies]=plotAllkEdiff()
     xlabel('g - order parameter'); ylabel('E-E_0');
     grid on; grid minor;
     title('Energy Difference for different g values');
-    legend([p1(1) p2(1) p3(1)],{'k=0','k=2','k=9'},'Location','northeastoutside');
+    legend([p1(1) p2(1) p3(1)],{'\Gamma(1)','(K/2)(6)','M(3)'},'Location','northeastoutside');
 
 end
