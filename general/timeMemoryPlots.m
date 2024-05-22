@@ -26,24 +26,26 @@ function timeMemoryPlots()
     lanczosTime=[0.173315,0.372668,1.223175,5.379136,31.017401,256.08741,2808.556323];
     lanczosMemory=[14464,74080,154256,891592,2030160,11967568,28326448];
     
-    figure; plot(prodN,prodMemory,'DisplayName','Product-Sz basis'); hold on;
-    plot(fullN,fullMemory,'DisplayName','Binary representation');
-    plot(magN,magMemory,'DisplayName','Sz Symmetry');
+    figure; plot(prodN,prodMemory,'DisplayName','Product-Sz basis','LineWidth',1); hold on;
+    plot(fullN,fullMemory,'DisplayName','Binary representation','LineWidth',1);
+    plot(magN,magMemory,'DisplayName','Sz Symmetry','LineWidth',1);
     %plot(momentumN,momentumMemory,'DisplayName','Sz and k Symmetry');
-    plot(kMagN,kMagMemory,'DisplayName','Sz=0 and k=0 Symmetry');
-    plot(lanczosN,lanczosMemory,'DisplayName','Lanczos'); hold off;
-    grid on; yscale log;
+    plot(kMagN,kMagMemory,'DisplayName','Sz=0 and k=0 Symmetry','LineWidth',1);
+    plot(lanczosN,lanczosMemory,'DisplayName','Lanczos','LineWidth',1); hold off;
+    %grid on; 
+    yscale log;
     legend('Location','northwest');
     ylabel('RAM / Bytes'); xlabel('N');
     title('RAM usage of different versions of code, by N');
 
-    figure; plot(prodN,prodTime,'DisplayName','Product-Sz basis'); hold on;
-    plot(fullN2,fullTime,'DisplayName','Binary representation');
-    plot(magN,magTime,'DisplayName','Sz Symmetry');
+    figure; plot(prodN,prodTime,'DisplayName','Product-Sz basis','LineWidth',1); hold on;
+    plot(fullN2,fullTime,'DisplayName','Binary representation','LineWidth',1);
+    plot(magN,magTime,'DisplayName','Sz Symmetry','LineWidth',1);
     %plot(momentumN,momentumTime,'DisplayName','Sz and k Symmetry');
-    plot(kMagN,kMagTime,'DisplayName','Sz=0 and k=0 Symmetry');
-    plot(lanczosN,lanczosTime,'DisplayName','Lanczos'); hold off;
-    grid on; yscale log;
+    plot(kMagN,kMagTime,'DisplayName','Sz=0 and k=0 Symmetry','LineWidth',1);
+    plot(lanczosN,lanczosTime,'DisplayName','Lanczos','LineWidth',1); hold off;
+    %grid on; 
+    yscale log;
     legend('Location','northwest');
     ylabel('Time / s'); xlabel('N');
     title('Run time of different versions of code, by N');

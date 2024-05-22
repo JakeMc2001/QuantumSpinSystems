@@ -47,15 +47,15 @@ function H=lanczosConMulti(N,mz,k,Lambda)
         energies=sort(real(eig(H)));
         energyList(1:5,m)=energies(1:5);
         % check for convergence of ground state
-        if abs(energyList(1,m-1)-energyList(1,m))<10^-10
-            H=H(1:m,1:m);
-            energyList=energyList(:,1:m);
-            plotlowestEnergies(real(energyList),m,N);
-            toc
-            memoryUsed=sum([whos().bytes]);
-            fprintf('Amount of memory used = %d Bytes\n',memoryUsed)
-            return
-        end
+        % if abs(energyList(1,m-1)-energyList(1,m))<10^-10
+        %     H=H(1:m,1:m);
+        %     energyList=energyList(:,1:m);
+        %     plotlowestEnergies(real(energyList),m,N);
+        %     toc
+        %     memoryUsed=sum([whos().bytes]);
+        %     fprintf('Amount of memory used = %d Bytes\n',memoryUsed)
+        %     return
+        % end
         % calculate un-normalised phi3
         phi3 = gamma - am*phi2 - sqrt(nm)*phi1;
         % normalise phi3

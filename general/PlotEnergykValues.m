@@ -3,7 +3,7 @@
 % EnergyLevels is a cell array with mz, energy and k values
 %function PlotEnergykValues(N)
 function PlotEnergykValues(EnergyLevels,N)
-    markers=['o','+','*','.','x','s','d','^','v','>','<','p','h'];
+    markers=['o','+','*','x','s','d','^','v','>','<','p','h'];
     %EnergyLevels=momentumEnergySpectrum(N);
     figure; hold on;
     for k=0:N-1
@@ -17,9 +17,9 @@ function PlotEnergykValues(EnergyLevels,N)
         end
         % calculate actual momentum for legend
         kj=k*(2/N);
-        plot(Sz,Energy,'LineStyle','none','Marker',markers(randi([1 13])),'MarkerSize',randi([4 10]),'DisplayName',sprintf("k=%0.1f%s",kj,'\pi'));
+        plot(Sz,Energy,'LineStyle','none','Marker',markers(randi([1 12])),'MarkerSize',10,'LineWidth',1,'DisplayName',sprintf("k=%0.1f%s",kj,'\pi'));
     end
-    hold off; grid on;
+    hold off; %grid on; grid minor;
     % limits can be changed to improve layout of plot
     %ylim([-8.5 5]);
     %xlim([-9.2 9.2]);

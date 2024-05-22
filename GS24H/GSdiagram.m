@@ -1,0 +1,32 @@
+function GSdiagram()
+    xDash=sqrt(3)/3;
+    figure; hold on;
+    plot([-0.5,0.5],[0,0],'black','LineWidth',2);
+    plot([-0.5,0.5],[1,1],'black','LineWidth',2);
+    plot([-0.5,0.5],[-1,-1],'black','LineWidth',2);
+    plot([0.5+xDash,1.5+xDash],[0.5,0.5],'black','LineWidth',2);
+    plot([0.5+xDash,1.5+xDash],[-0.5,-0.5],'black','LineWidth',2);
+    plot([-(1.5+xDash),-(0.5+xDash)],[0.5,0.5],'black','LineWidth',2);
+    plot([-(1.5+xDash),-(0.5+xDash)],[-0.5,-0.5],'black','LineWidth',2);
+    plot([0.5,0.5+xDash],[1,0.5],'black--','LineWidth',1);
+    plot([0.5+xDash,0.5],[0.5,0],'black--','LineWidth',1);
+    plot([-0.5,-(0.5+xDash)],[1,0.5],'black--','LineWidth',1);
+    plot([-(0.5+xDash),-0.5],[0.5,0],'black--','LineWidth',1);
+    plot([-0.5,-(0.5+xDash)],[0,-0.5],'black--','LineWidth',1);
+    plot([-(0.5+xDash),-0.5],[-0.5,-1],'black--','LineWidth',1);
+    plot([0.5,0.5+xDash],[0,-0.5],'black--','LineWidth',1);
+    plot([0.5+xDash,0.5],[-0.5,-1],'black--','LineWidth',1);
+    plot([-(1.5+xDash),-(1.5+2*xDash)],[0.5,0],'black--','LineWidth',1);
+    plot([-(1.5+2*xDash),-(1.5+xDash)],[0,-0.5],'black--','LineWidth',1);
+    plot([1.5+xDash,1.5+2*xDash],[0.5,0],'black--','LineWidth',1);
+    plot([1.5+2*xDash,1.5+xDash],[0,-0.5],'black--','LineWidth',1);
+    ylim([-1.1 1.3]); axis off;
+    xlim([-3,3]);
+    text(-0.1,1.16,'\psi_1^{(1)}','FontSize',25);
+    text(-0.1,0.16,'\psi_4^{(1)}','FontSize',25);
+    text(-0.1,-0.84,'\psi_7^{(1)}','FontSize',25);
+    text(-(1.1+xDash),0.66,'\psi_2^{(1)}','FontSize',25);
+    text(-(1.1+xDash),-0.34,'\psi_5^{(1)}','FontSize',25);
+    text((0.9+xDash),0.66,'\psi_3^{(1)}','FontSize',25);
+    text((0.9+xDash),-0.34,'\psi_6^{(1)}','FontSize',25);
+end

@@ -231,9 +231,11 @@ function [k0energies,k2energies,k9energies]=plotAllkEdiff()
     p3=plot(k2x,k9energies,'square','MarkerEdgeColor',[0.4660 0.6740 0.1880]);
     hold off;
     xlim([-0.05 1.05]);
+    %axis tickaligned;
     xlabel('g - order parameter'); ylabel('E-E_0');
     grid on; grid minor;
     title('Energy Difference for different g values');
     legend([p1(1) p2(1) p3(1)],{'\Gamma(1)','(K/2)(6)','M(3)'},'Location','northeastoutside');
-
+    %xticks([0,0.05,0.1,0.15,0.2,0.3,0.5,1]);
+    %xscale log;
 end

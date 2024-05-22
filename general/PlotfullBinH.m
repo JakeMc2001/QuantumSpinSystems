@@ -5,9 +5,9 @@ function PlotfullBinH(H,SystemDescription)
     %xValues=[0 0.5];
     xValues=0;
     figure; hold on;
-    plot(xValues,EnergyLevels(1),'*');
+    plot(xValues,EnergyLevels(1),'*','LineWidth',1,'MarkerSize',10);
     for i=2:height(EnergyLevels)
-        plot(xValues,EnergyLevels(i),'*');
+        plot(xValues,EnergyLevels(i),'*','LineWidth',1,'MarkerSize',10);
     end
     hold off;
     %ylim([-2.1 1.1]); 
